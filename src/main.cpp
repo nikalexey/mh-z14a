@@ -32,34 +32,35 @@ void setup() {
   display.setCursor(15, 24);
   display.println(F("Quadcode"));
   display.display();
-  sleep(5.5);
+  sleep(1);
 
-  // sensor.setDebug(true);
+  sensor.setDebug(true);
+  display.clearDisplay();
+  display.setCursor(5, 8);
+  display.println(F("WARMING UP"));
+  while (!sensor.isReady()) {
+    display.drawRect(0, 54, 128, 10, 1);
+    auto x = map(millis(), 0, 3 * 60 * 1000, 1, 126);
+    display.fillRect(1, 55, x, 9, 1);
+    display.display();
+  }
 }
 
 
-void loop() {
-  static auto idx = 0;
+void printCO2(int ppm) {
   display.clearDisplay();
+  display.setCursor(15, 8);
+  display.println(F("CO2 PPM: "));
+  display.setCursor(32, 32);
+  display.println(ppm, 10);
+  display.display();
+  Serial.print("PPM: ");
+  Serial.println(ppm);
+}
+
+void loop() {
   if (sensor.isReady()) {
-    auto ppm = sensor.readCO2UART();
-    display.setCursor(15, 8);
-    display.println(F("CO2 PPM: "));
-    display.setCursor(32, 32);
-    display.println(ppm, 10);
-    display.display();
-    Serial.print("PPM: ");
-    Serial.println(ppm);
-    delay(60000);
-  } else {
-    display.setCursor(0, 8);
-    display.println(F("WARMING UP"));
-    display.setCursor(0, 38);
-    display.println(warming_progress_bar);
-    display.display();
-    Serial.print("Not Ready ");
-    Serial.println(++idx);
-    warming_progress_bar += "*";
-    delay(19000);
+    printCO2(sensor.readCO2UART());
+    delay(1000);
   }
 }

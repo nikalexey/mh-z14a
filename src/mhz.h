@@ -14,9 +14,6 @@
 // types of sensors.
 extern const int MHZ14A;
 extern const int MHZ19B;
-extern const int MHZ_2K;
-extern const int MHZ_5k;
-extern const int MHZ_10K;
 // status codes
 extern const int STATUS_NO_RESPONSE;
 extern const int STATUS_CHECKSUM_MISMATCH;

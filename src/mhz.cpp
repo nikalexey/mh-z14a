@@ -7,9 +7,6 @@
 
 const int MHZ14A = 14;
 const int MHZ19B = 19;
-const int MHZ_2K = 1;
-const int MHZ_5K = 2;
-const int MHZ_10K = 3;
 
 const unsigned long MHZ14A_PREHEATING_TIME = 3L * 60L * 1000L;
 const unsigned long MHZ19B_PREHEATING_TIME = 3L * 60L * 1000L;
